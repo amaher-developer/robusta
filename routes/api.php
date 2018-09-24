@@ -15,12 +15,20 @@ use Illuminate\Http\Request;
 Route::post('login', 'AuthApiController@login');
 
 
+
 Route::middleware('apilogin')->group(function () {
     Route::get('departments', 'DepartmentController@index');
     Route::get('departments/{department}', 'DepartmentController@show');
     Route::get('employees', 'EmployeeController@index');
     Route::post('update_bonus', 'EmployeeController@updateBonus');
+    Route::get('salaries_report', 'SalaryController@index');
+
+
+    Route::get('fill_reminder', 'ReminderController@fillTable');
+    Route::post('send_mails', 'ReminderController@sendMails');
+
 });
+
 
 
 //Route::middleware('auth:api')->get('/user', function (Request $request) {
