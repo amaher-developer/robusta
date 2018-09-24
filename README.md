@@ -43,7 +43,9 @@ amount to be paid (salaries/bonus)
 - run seeder.
 - login using this route to get api_token which will used in every routes after that:
  {site_url}/api/login | post | inputs (email, password).
- 
+- make sure that ther server run the cron jobs of laravel scheduling 
+
+
  **Routes**
  - all departments : {site_url}/api/departments | get | (api_token)
  - one department : {site_url}/departments/{department} | get | (api_token, id)

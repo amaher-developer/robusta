@@ -10,15 +10,15 @@ use Illuminate\Notifications\Messages\MailMessage;
 class AdminEmailNotification extends Notification
 {
     use Queueable;
-
+    protected $data;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -41,9 +41,10 @@ class AdminEmailNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line($this->data['subject'])
+//                    ->action('Notification Action', url('/'))
+                    ->line($this->data['message'])
+            ;
     }
 
     /**

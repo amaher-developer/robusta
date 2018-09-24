@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\AdminEmailNotification;
 use App\Reminder;
 use App\User;
 use Carbon\Carbon;
@@ -52,12 +53,20 @@ class ReminderController extends Controller
             $employees = DB::table('employees')
                 ->select(DB::raw('SUM(salary) salaries_total, SUM(salary * bonus_by_ratio / 100) bonus_total'))
                 ->first();
+            $users = User::all();
+            $mails = $users->pluck('email');
 
-            $mails = User::all()->pluck('email');
             $toPay = $reminder->type == 'base' ? $employees->salaries_total : $employees->bonus_total;
 
-            mail(implode($mails), "Salaries reminder [{$reminder->type}]", "Payments total: {$toPay}");
-//            Notification::send($mails, Notification::toMail());
+            $subject = "Reminder Salaries [{$reminder->type}]";
+            $message = "Total Payments : {$toPay}";
+            if(count($mails) > 1) $mails = implode(', ', $mails); else $mails;
+
+            $data = ['subject'=> $subject, 'message' => $message, 'emails' => $mails ];
+            \Illuminate\Support\Facades\Notification::send($users, new AdminEmailNotification($data));
+            mail($mails, $subject, $message);
+
+
 
         }
     }
