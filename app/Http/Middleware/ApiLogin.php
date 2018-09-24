@@ -19,7 +19,11 @@ class ApiLogin
     public function handle($request, Closure $next)
     {
         if (!$request->api_token || !$this->CheckToken($request->api_token)) {
-            throw new Exception('access denied');
+            return response(
+                ['error' => 'access denied.'],
+                404
+            );
+//            throw new Exception('access denied');
         }
         return $next($request);
     }

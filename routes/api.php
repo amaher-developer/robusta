@@ -19,6 +19,7 @@ Route::middleware('apilogin')->group(function () {
     Route::get('departments', 'DepartmentController@index');
     Route::get('departments/{department}', 'DepartmentController@show');
     Route::get('employees', 'EmployeeController@index');
+    Route::post('update_bonus', 'EmployeeController@updateBonus');
 });
 
 
