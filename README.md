@@ -49,6 +49,7 @@ amount to be paid (salaries/bonus)
  - one department : {site_url}/departments/{department} | get | (api_token, id)
  - all employees : {site_url}/api/employees | get | (api_token)
  - update employee bonus : {site_url}/api/update_bonus | post | (api_token, id, bouns_by_ratio)
- - salaries_report : {site_url}/api/salaries_report | get | (api_token)
+ - salaries report : {site_url}/api/salaries_report | get | (api_token)
  
- 
+ - fill reminder : {site_url}/api/fill_reminder | get | (api_token)
+ - send mail to admins : {site_url}/api/send_mails | post | (api_token)
